@@ -1,0 +1,11 @@
+#Setup
+
+1. Install Node, npm, MongoDb - used versions are Node v21.5.0 and MongoDb v6.0.18
+2. Clone this project
+3. Run `npm i` in `api`
+
+#Run
+
+1. Run Mongodb - in `api` run `npm run mongodb`
+2. Run API - in `api` run `npm run dev` - uses nodemon for realtime refresh
+3. API runs on port 8088
