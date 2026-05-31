@@ -4,10 +4,10 @@ plugins {
 
 android {
     namespace 'com.example.carbyer'
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+    compileSdk 36
+
+    buildFeatures {
+        viewBinding true
     }
 
     defaultConfig {
@@ -37,6 +37,8 @@ dependencies {
     implementation libs.appcompat
     implementation libs.constraintlayout
     implementation libs.material
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit

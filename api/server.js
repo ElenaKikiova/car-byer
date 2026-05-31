@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { connectToDb, initDb, deleteDb } = require("./db/db.js");
 
+const authRoutes = require("./routes/authRoutes");
 const carRoutes = require("./routes/carRoutes");
 const dealerRoutes = require("./routes/dealerRoutes");
 
@@ -10,7 +11,7 @@ const PORT = 8088;
 
 // CORS config
 const corsOptions = {
-	origin: "http://localhost:3000",
+	origin: "*",
 	methods: ["GET", "POST", "PUT", "DELETE"],
 	allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -23,10 +24,11 @@ app.use(express.json());
 connectToDb()
 	.then(async () => {
 		// Uncomment to delete the db
-		deleteDb();
+		// deleteDb();
 
 		initDb();
 
+		app.use("/auth", authRoutes);
 		app.use("/cars", carRoutes);
 		app.use("/dealers", dealerRoutes);
 
