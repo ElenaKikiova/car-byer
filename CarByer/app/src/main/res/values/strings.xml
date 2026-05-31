@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Car Byer</string>
+    <string name="hello">Hello</string>
+    <string name="click_here_to_register">Click here to register</string>
+    <string name="email_field">Email</string>
+    <string name="password_field">Password</string>
+    <string name="login_button">Login</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="repeat_password_field">Repeat password</string>
+    <string name="phone">Phone</string>
+    <string name="seller">Seller</string>
+    <string name="register">Register</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_message_empty_fields">Please insert username and password</string>
+    <string name="error_password_missmatch">Please enter the same password twice</string>
+    <string name="error_login_failed">Please check your password and try again</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
