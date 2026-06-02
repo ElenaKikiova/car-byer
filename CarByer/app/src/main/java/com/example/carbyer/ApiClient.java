@@ -120,7 +120,7 @@ public class ApiClient {
                             if(code >= 200 && code <= 300){
                                 MAIN.post( () -> cb.onSuccess(json));
                             }else{
-                                MAIN.post(() -> cb.onError(code, "Request failed"));
+                                MAIN.post(() -> cb.onError(code, json.optString("message", "Request failed")));
                             }
                         } catch (JSONException e) {
                             MAIN.post(() -> cb.onError(code, "Invalid JSON: " + text));

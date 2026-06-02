@@ -25,14 +25,16 @@ const initDb = async () => {
 		const carCount = await carsCollection.countDocuments();
 		if (carCount === 0) {
 			await fillCarsData(db);
+
+			console.log("Database filled with cars successfully");
 		}
 
 		const dealerCount = await dealersCollection.countDocuments();
 		if (dealerCount === 0) {
 			await fillDealersData(db);
-		}
 
-		console.log("Database initialized successfully");
+			console.log("Database filled with dealers successfully");
+		}
 	} catch (err) {
 		console.error("Error initializing DB:", err);
 	}

@@ -20,6 +20,7 @@ const getRequestWithDealerPopulated = (query) => [
 
 // Get all cars and their dealers
 const getAllCars = async (req, res) => {
+	console.log("[API LOG]: get all cars body: ", req.body);
 	try {
 		const db = getDb();
 
@@ -42,12 +43,13 @@ const getAllCars = async (req, res) => {
 
 		const request = getRequestWithDealerPopulated(query);
 
-		const carsWithDealers = await db.collection("cars").aggregate(request).toArray();
+		const cars = await db.collection("cars").aggregate(request).toArray();
 
-		res.status(200).json(carsWithDealers);
+		console.log("[API LOG]: get all cars result: ", cars);
+		res.status(200).json({ cars });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error fetching cars");
+		res.status(400).send({ message: "Error fetching cars" });
 	}
 };
 
@@ -58,21 +60,21 @@ const getCarById = async (req, res) => {
 		const carId = parseInt(req.params.id);
 
 		if (isNaN(carId)) {
-			return res.status(400).send("Invalid or missing car id");
+			return res.status(400).send({ message: "Invalid or missing car id" });
 		}
 
 		const request = getRequestWithDealerPopulated({ id: carId });
 
-		const carWithDealer = await db.collection("cars").aggregate(request).toArray();
+		const car = await db.collection("cars").aggregate(request).toArray();
 
-		if (carWithDealer.length === 0) {
-			return res.status(404).send("Car not found");
+		if (car.length === 0) {
+			return res.status(404).send({ message: "Car not found" });
 		}
 
-		res.json(carWithDealer);
+		res.json({ car });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error fetching car");
+		res.status(400).send({ message: "Error finding car" });
 	}
 };
 
@@ -85,7 +87,7 @@ const createCar = async (req, res) => {
 		// Validate car fields
 		const { brand, model, productionYear, dealerIds } = newCar;
 		if (!brand || !model || !productionYear || !Array.isArray(dealerIds)) {
-			return res.status(400).send("Missing required car fields");
+			return res.status(400).send({ message: "Missing car fields" });
 		}
 
 		// Get last car's id and increment it
@@ -106,13 +108,13 @@ const createCar = async (req, res) => {
 				.toArray();
 
 			// Return the new car with its dealers
-			return res.status(200).send({ ...newCar, dealers });
+			return res.status(200).send({ car: { ...newCar, dealers } });
 		} else {
-			res.status(400).send("Error creating car");
+			res.status(400).send({ message: "Error creating car" });
 		}
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error creating car");
+		res.status(400).send({ message: "Error creating car" });
 	}
 };
 
@@ -123,7 +125,7 @@ const updateCar = async (req, res) => {
 		const carId = parseInt(req.params.id);
 
 		if (!carId) {
-			return res.status(400).send("Missing car id");
+			return res.status(400).send({ message: "Missing car id" });
 		}
 
 		let updateData = req.body;
@@ -140,13 +142,13 @@ const updateCar = async (req, res) => {
 		const result = await db.collection("cars").updateOne({ id: carId }, { $set: updateData });
 
 		if (result.matchedCount === 0) {
-			return res.status(404).send("Car not found");
+			return res.status(404).send({ message: "Car not found" });
 		}
 
-		res.status(200).send({ carId, ...updateData });
+		res.status(200).send({ car: { carId, ...updateData } });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error updating car");
+		res.status(400).send({ message: "Error updating car" });
 	}
 };
 
@@ -157,19 +159,19 @@ const deleteCar = async (req, res) => {
 		const carId = parseInt(req.params.id);
 
 		if (!carId) {
-			return res.status(400).send("Missing car id");
+			return res.status(400).send({ message: "Missing car id" });
 		}
 
 		const result = await db.collection("cars").deleteOne({ id: carId });
 
 		if (result.deletedCount === 0) {
-			return res.status(404).send("Car not found");
+			return res.status(404).send({ message: "Car not found" });
 		}
 
-		res.status(200).send("Car deleted successfully");
+		res.status(200).send({ message: "Car deleted" });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error deleting car");
+		res.status(400).send({ message: "Error deleting car" });
 	}
 };
 

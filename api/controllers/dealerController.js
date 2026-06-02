@@ -34,10 +34,10 @@ const getAllDealers = async (req, res) => {
 
 		const dealers = await db.collection("dealers").aggregate(request).toArray();
 
-		res.status(200).json(dealers);
+		res.status(200).json({ dealers });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error fetching dealers");
+		res.status(400).send({ message: "Error fetching dealers" });
 	}
 };
 
@@ -48,7 +48,7 @@ const getDealerById = async (req, res) => {
 		const dealerId = parseInt(req.params.id);
 
 		if (isNaN(dealerId)) {
-			return res.status(400).send("Missing dealer id");
+			return res.status(400).send({ message: "Missing dealer id" });
 		}
 
 		const request = getRequestWithCarsPopulated({ id: dealerId });
@@ -57,13 +57,13 @@ const getDealerById = async (req, res) => {
 		const dealer = await db.collection("dealers").aggregate(request).toArray();
 
 		if (!dealer) {
-			return res.status(404).send("Dealer not found");
+			return res.status(404).send({ message: "Delaer not found" });
 		}
 
-		res.status(200).json(dealer);
+		res.status(200).json({ dealer });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error fetching dealer");
+		res.status(400).send({ message: "Error fetching dealer" });
 	}
 };
 
@@ -76,7 +76,7 @@ const createDealer = async (req, res) => {
 		// Validate
 		const { name, address, workingHours } = newDealer;
 		if (!name || !address || !workingHours) {
-			return res.status(400).send("Missing required dealer fields");
+			return res.status(400).send({ message: "Missing dealer fields" });
 		}
 
 		// Get the last dealer id and increment it
@@ -87,13 +87,13 @@ const createDealer = async (req, res) => {
 		console.error(result);
 
 		if (result) {
-			res.status(200).json(newDealer);
+			res.status(200).json({ dealer: newDealer });
 		} else {
-			res.status(400).send("Error creating dealer");
+			res.status(400).send({ message: "Error creating dealer" });
 		}
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error creating dealer");
+		res.status(400).send({ message: "Error creating dealer" });
 	}
 };
 
@@ -104,7 +104,7 @@ const updateDealer = async (req, res) => {
 		const dealerId = parseInt(req.params.id);
 
 		if (isNaN(dealerId)) {
-			return res.status(400).send("Invalid or missing dealer id");
+			return res.status(400).send({ message: "Missing dealer id" });
 		}
 
 		const updateData = req.body;
@@ -112,7 +112,7 @@ const updateDealer = async (req, res) => {
 
 		// Validate
 		if (!name || !address || !workingHours) {
-			return res.status(400).send("Invalid or missing dealer id");
+			return res.status(400).send({ message: "Missing dealer fields" });
 		}
 
 		const result = await db
@@ -120,15 +120,15 @@ const updateDealer = async (req, res) => {
 			.updateOne({ id: dealerId }, { $set: updateData });
 
 		if (result.matchedCount === 0) {
-			return res.status(404).send("Dealer not found");
+			return res.status(404).send({ message: "Dealer not found" });
 		}
 
 		const updatedDealer = await db.collection("dealers").findOne({ id: dealerId });
 
-		res.status(200).json(updatedDealer);
+		res.status(200).json({ dealer: updatedDealer });
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error updating dealer");
+		res.status(400).send({ message: "Error updating dealer" });
 	}
 };
 
@@ -139,19 +139,19 @@ const deleteDealer = async (req, res) => {
 		const dealerId = parseInt(req.params.id);
 
 		if (isNaN(dealerId)) {
-			return res.status(400).send("Missing dealer id");
+			return res.status(400).send({ message: "Missing dealer id" });
 		}
 
 		const result = await db.collection("dealers").deleteOne({ id: dealerId });
 
 		if (result.deletedCount === 0) {
-			return res.status(404).send("Dealer not found");
+			return res.status(404).send({ message: "Dealer not found" });
 		}
 
 		res.status(200).json("Dealer deleted successfully");
 	} catch (err) {
 		console.error(err);
-		res.status(400).send("Error deleting dealer");
+		res.status(400).send({ message: "Error deleting dealer" });
 	}
 };
 

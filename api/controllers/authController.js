@@ -5,6 +5,7 @@ const { getDb } = require("../db/db");
 const JWT_SECRET = "kolichki";
 
 const register = async (req, res) => {
+	console.log("[API LOG]: register route body: ", req.body);
 	try {
 		const db = getDb();
 
@@ -61,12 +62,12 @@ const register = async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500).send("Error registering user");
+		res.status(500).send({ message: "Error registering" });
 	}
 };
 
 const login = async (req, res) => {
-	console.log(req.body);
+	console.log("[API LOG]: login route body: ", req.body);
 	try {
 		const db = getDb();
 
@@ -75,6 +76,7 @@ const login = async (req, res) => {
 		const user = await db.collection("users").findOne({ email });
 
 		if (!user) {
+			console.log("[API LOG]: login no user");
 			return res.status(401).json({
 				message: "Invalid email or password",
 			});
@@ -83,6 +85,7 @@ const login = async (req, res) => {
 		const validPassword = await bcrypt.compare(password, user.password);
 
 		if (!validPassword) {
+			console.log("[API LOG]: login not valid pass");
 			return res.status(401).json({
 				message: "Invalid email or password",
 			});
@@ -112,7 +115,7 @@ const login = async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err);
-		res.status(500).send("Error logging in");
+		res.status(500).send({ message: "Error logging in" });
 	}
 };
 
