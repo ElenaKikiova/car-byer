@@ -13,12 +13,14 @@
             android:id="@+id/brandET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hint="Brand" />
 
         <EditText
             android:id="@+id/modelET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hint="Model" />
 
         <EditText
@@ -26,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Production Year"
+            android:layout_marginTop="10dp"
             android:inputType="number" />
 
         <EditText
@@ -33,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Kilometers"
+            android:layout_marginTop="10dp"
             android:inputType="number" />
 
         <EditText
@@ -40,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Price"
+            android:layout_marginTop="10dp"
             android:inputType="numberDecimal" />
 
         <EditText
@@ -48,10 +53,23 @@
             android:layout_height="wrap_content"
             android:hint="Image URL" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="Dealer:"/>
+
+        <Spinner
+            android:id="@+id/dealerSpinner"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/saveB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Save Car" />
 
     </LinearLayout>

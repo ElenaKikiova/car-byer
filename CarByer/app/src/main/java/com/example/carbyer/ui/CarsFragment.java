@@ -132,4 +132,10 @@ public class CarsFragment extends Fragment {
         });
 
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("CARS", "CarsFragment destroyed");
+    }
 }

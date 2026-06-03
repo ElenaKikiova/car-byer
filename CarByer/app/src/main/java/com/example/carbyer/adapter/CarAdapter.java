@@ -57,7 +57,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
         holder.year.setText(String.valueOf(car.productionYear));
         holder.kilometers.setText(car.kilometers + "km");
         holder.price.setText(car.price + "€");
-        holder.dealer.setText("Sold by " + car.dealer.name + " " + car.dealer.city);
+        if(car.dealer != null) {
+            holder.dealer.setText("Sold by " + car.dealer.name + " " + car.dealer.city);
+        }
 
         String imageURL = car.imageURL;
 

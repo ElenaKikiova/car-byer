@@ -136,7 +136,7 @@ const updateCar = async (req, res) => {
 		// Parse the dealer id's to integers
 		updateData = {
 			...updateData,
-			dealerIds: updateData.dealerIds.map((dealerId) => parseInt(dealerId)),
+			dealerId: parseInt(updateData.dealerId),
 		};
 
 		const result = await db.collection("cars").updateOne({ id: carId }, { $set: updateData });

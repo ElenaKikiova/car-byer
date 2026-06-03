@@ -7,23 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carbyer.ApiClient;
 import com.example.carbyer.R;
 import com.example.carbyer.SessionManager;
 import com.example.carbyer.adapter.CarAdapter;
+import com.example.carbyer.adapter.DealerSpinnerAdapter;
 import com.example.carbyer.model.Car;
 import com.example.carbyer.model.Dealer;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CarsCreateUpdateFragment extends Fragment {
@@ -36,6 +39,9 @@ public class CarsCreateUpdateFragment extends Fragment {
     private EditText kilometersET;
     private EditText priceET;
     private EditText imageUrlET;
+
+    private Spinner dealerSpinner;
+    private List<Dealer> dealerList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -59,7 +65,10 @@ public class CarsCreateUpdateFragment extends Fragment {
             carId = getArguments().getInt("carId");
         }
 
+        dealerSpinner = root.findViewById(R.id.dealerSpinner);
+
         loadCarData();
+        loadDealers();
 
         return root;
     }
@@ -124,6 +133,47 @@ public class CarsCreateUpdateFragment extends Fragment {
 
     }
 
+    private void loadDealers() {
+
+        String token = new SessionManager(requireContext()).getToken();
+
+        ApiClient.get("dealers", token, new ApiClient.Callback() {
+            @Override
+            public void onSuccess(JSONObject body) {
+
+                if (!isAdded() || dealerSpinner == null) return;
+
+                JSONArray arr = body.optJSONArray("dealers");
+                if (arr == null) return;
+
+                dealerList.clear();
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject d = arr.optJSONObject(i);
+
+                    dealerList.add(new Dealer(
+                            d.optInt("id"),
+                            d.optString("name"),
+                            d.optString("address"),
+                            d.optString("city"),
+                            d.optString("workingHours")
+                    ));
+                }
+
+                if (!isAdded()) return;
+
+                DealerSpinnerAdapter adapter =
+                        new DealerSpinnerAdapter(requireContext(), dealerList);
+
+                dealerSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(int httpCode, String message) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void saveCar() {
         JSONObject body = new JSONObject();
         String token = new SessionManager(requireContext()).getToken();
@@ -139,6 +189,9 @@ public class CarsCreateUpdateFragment extends Fragment {
                     Integer.parseInt(priceET.getText().toString()));
             body.put("imageURL",
                     imageUrlET.getText().toString());
+
+            Dealer selected = (Dealer) dealerSpinner.getSelectedItem();
+            body.put("dealerId", selected.id);
 
         } catch (Exception e) {
             Toast.makeText(requireContext(),
@@ -171,5 +224,12 @@ public class CarsCreateUpdateFragment extends Fragment {
                     }
                 }
         );
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("CARS", "CarsCrFragment destroyed");
     }
 }
