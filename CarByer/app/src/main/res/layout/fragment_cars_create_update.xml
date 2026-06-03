@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/brandET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Brand" />
+
+        <EditText
+            android:id="@+id/modelET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Model" />
+
+        <EditText
+            android:id="@+id/yearET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Production Year"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/kilometersET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kilometers"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/priceET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/imageUrlET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Image URL" />
+
+        <Button
+            android:id="@+id/saveB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Car" />
+
+    </LinearLayout>
+
+</ScrollView>

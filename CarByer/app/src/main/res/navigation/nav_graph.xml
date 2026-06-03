@@ -7,6 +7,16 @@
     <fragment
         android:id="@+id/nav_cars"
         android:name="com.example.carbyer.ui.CarsFragment"
-        android:label="Cars" />
+        android:label="Cars">
+
+        <action
+            android:id="@+id/action_cars_to_edit"
+            app:destination="@id/nav_car_create_update" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_car_create_update"
+        android:name="com.example.carbyer.ui.CarsCreateUpdateFragment"
+        android:label="Edit Car" />
 
 </navigation>

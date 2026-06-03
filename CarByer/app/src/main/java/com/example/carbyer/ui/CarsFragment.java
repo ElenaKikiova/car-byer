@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,8 @@ public class CarsFragment extends Fragment {
 
     private CarAdapter adapter;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,8 +45,27 @@ public class CarsFragment extends Fragment {
         RecyclerView rv = root.findViewById(R.id.carsRV);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        adapter = new CarAdapter(car -> {
-            Toast.makeText(requireContext(), "Loading cars..", Toast.LENGTH_SHORT).show();
+        adapter = new CarAdapter(new CarAdapter.OnClick() {
+            @Override
+            public void onCarClick(Car car) {
+                Bundle args = new Bundle();
+                args.putInt("carId", car.id);
+
+//                Navigation.findNavController(requireView()).navigate(R.id.nav_car_view, args);
+            }
+
+            @Override
+            public void onCarEdit(Car car) {
+                Bundle args = new Bundle();
+                args.putInt("carId", car.id);
+
+                Navigation.findNavController(requireView()).navigate(R.id.nav_car_create_update, args);
+            }
+
+            @Override
+            public void onCarDelete(Car car) {
+                // call API DELETE here
+            }
         });
         rv.setAdapter(adapter);
 
@@ -97,7 +120,7 @@ public class CarsFragment extends Fragment {
                     ));
                 }
 
-                Log.d("CARS", "Loaded cars: " + cars);
+                Log.d("CARS", "Loaded cars: ");
 
                 adapter.setItems(cars);
             }

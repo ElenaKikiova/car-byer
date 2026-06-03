@@ -38,6 +38,14 @@ public class ApiClient {
         request("GET", path, null, token, cb);
     }
 
+    public static void put(String path, JSONObject body, String token, Callback cb){
+        request("PUT", path, body, token, cb);
+    }
+
+    public static void delete(String path, String token, Callback cb){
+        request("DELETE", path, null, token, cb);
+    }
+
     public static void get(String path, Map<String, String> query, String token, Callback cb){
         request("GET", path + buildQuery(query), null, token, cb);
     }

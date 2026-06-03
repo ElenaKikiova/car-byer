@@ -4,7 +4,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
 
     public interface OnClick {
         void onCarClick(Car car);
+        void onCarEdit(Car car);
+        void onCarDelete(Car car);
     }
 
     private List<Car> items = new ArrayList<>();
@@ -72,7 +76,13 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
             }
         }
 
-        holder.itemView.setOnClickListener(v -> onClick.onCarClick(car));
+        holder.image.setOnClickListener(v -> onClick.onCarClick(car));
+        holder.carInfoLayout.setOnClickListener(v -> onClick.onCarClick(car));
+
+        holder.editB.setOnClickListener(v -> {
+            onClick.onCarEdit(car);
+        });
+        holder.deleteB.setOnClickListener(v -> onClick.onCarDelete(car));
 
     }
 
@@ -89,15 +99,24 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
         TextView dealer;
         TextView year;
 
+        ImageButton editB;
+        ImageButton deleteB;
+
+        LinearLayout carInfoLayout;
+
         public VH(@NonNull View itemView) {
             super(itemView);
 
             image = itemView.findViewById(R.id.imageView);
+            carInfoLayout = itemView.findViewById(R.id.carInfoLayout);
             title = itemView.findViewById(R.id.nameTV);
             price = itemView.findViewById(R.id.priceTV);
             kilometers = itemView.findViewById(R.id.kilometersTV);
             dealer = itemView.findViewById(R.id.dealerNameTV);
             year = itemView.findViewById(R.id.yearTV);
+
+            editB = itemView.findViewById(R.id.editB);
+            deleteB = itemView.findViewById(R.id.deleteB);
         }
     }
 }
