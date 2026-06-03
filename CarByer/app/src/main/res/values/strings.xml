@@ -2,6 +2,7 @@
     <string name="app_name">Car Byer</string>
     <string name="hello">Click here to register</string>
     <string name="click_here_to_register">Click here to register</string>
+    <string name="click_here_to_login">Click here to login</string>
     <string name="email_field">Email</string>
     <string name="password_field">Password</string>
     <string name="login_button">Login</string>
@@ -13,6 +14,7 @@
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
     <string name="error_message_empty_fields">Please insert username and password</string>
+    <string name="error_message_passwords_dont_match">Passwords don`t match</string>
     <string name="error_password_missmatch">Please enter the same password twice</string>
     <string name="error_login_failed">Please check your password and try again</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -44,8 +44,11 @@ public class LoginActivity extends AppCompatActivity {
 
         session = new SessionManager(this);
 
-
-        Log.d("CARS", "on login screen");
+        registerTV.setOnClickListener(v -> {
+            startActivity(
+                    new Intent(LoginActivity.this, RegisterActivity.class)
+            );
+        });
     }
 
 

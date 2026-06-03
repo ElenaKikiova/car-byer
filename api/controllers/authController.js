@@ -56,7 +56,6 @@ const register = async (req, res) => {
 				email,
 				firstName,
 				lastName,
-				phone,
 				role: user.role,
 			},
 		});

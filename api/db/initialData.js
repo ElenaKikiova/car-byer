@@ -59,7 +59,8 @@ const cars = [
 		brand: "Opel",
 		model: "Astra",
 		productionYear: 2016,
-		imageURL: "https://cdn.motor1.com/images/mgl/8M0W3/s1/opel-astra.jpg",
+		imageURL:
+			"https://www.automoli.com/common/vehicles/_assets/img/gallery/f58/opel-astra-h.jpg",
 		kilometers: 312000,
 		dealerId: 2,
 		price: "4800",
@@ -80,7 +81,8 @@ const cars = [
 		brand: "Mercedes-Benz",
 		model: "C-Class",
 		productionYear: 2017,
-		imageURL: "https://preview2.netcarshow.com/Mercedes-Benz-C-Class_Coupe-2017-hd.jpg",
+		imageURL:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaWUNS5nBMVAPhqm03uqfP4IYk8AVCYZimdw&s",
 		kilometers: 271000,
 		dealerId: 3,
 		price: "8900",
@@ -133,7 +135,8 @@ const cars = [
 		brand: "Audi",
 		model: "TT",
 		productionYear: 2011,
-		imageURL: "https://cdn.motor1.com/images/mgl/2vVn7/s1/audi-tt.jpg",
+		imageURL:
+			"https://cdn.motor1.com/images/mgl/1ZQ2ep/s1/2024-audi-tt-special-edition-for-spain.jpg",
 		kilometers: 379000,
 		dealerId: 5,
 	},
@@ -142,7 +145,8 @@ const cars = [
 		brand: "Honda",
 		model: "Jazz",
 		productionYear: 2015,
-		imageURL: "https://cdn.motor1.com/images/mgl/g3r9K/s1/honda-jazz.jpg",
+		imageURL:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI_T7rCbWDdUeUE8QH498EkNwfucxRxuyHQg&s",
 		kilometers: 287000,
 		dealerId: 5,
 		price: "3500",
