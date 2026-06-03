@@ -30,11 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
-        binding.appBarMain.fab.setOnClickListener(view ->
-                Snackbar.make(view, "Add new car / dealer action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show()
-        );
+        binding.appBarMain.fab.setOnClickListener(view -> {
+
+            NavController navController = Navigation.findNavController(
+                    this, R.id.nav_host_fragment_content_main
+            );
+
+            Bundle args = new Bundle();
+            args.putString("mode", "create");
+
+            navController.navigate(R.id.action_cars_to_create, args);
+        });
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

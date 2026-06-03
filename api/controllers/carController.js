@@ -85,8 +85,8 @@ const createCar = async (req, res) => {
 		const newCar = req.body;
 
 		// Validate car fields
-		const { brand, model, productionYear, dealerIds } = newCar;
-		if (!brand || !model || !productionYear || !Array.isArray(dealerIds)) {
+		const { brand, model, productionYear, dealerId } = newCar;
+		if (!brand || !model || !productionYear || !dealerId) {
 			return res.status(400).send({ message: "Missing car fields" });
 		}
 
@@ -95,20 +95,12 @@ const createCar = async (req, res) => {
 		newCar.id = lastEntry.id ? lastEntry.id + 1 : 1;
 
 		// Parse dealer ids to integers
-		newCar.dealerIds = dealerIds.map((dealerId) => parseInt(dealerId));
+		newCar.dealerId = parseInt(dealerId);
 
 		const result = await db.collection("cars").insertOne(newCar);
 
 		if (result) {
-			const dealers = await db
-				.collection("dealers")
-				.find({
-					id: { $in: newCar.dealerIds },
-				})
-				.toArray();
-
-			// Return the new car with its dealers
-			return res.status(200).send({ car: { ...newCar, dealers } });
+			return res.status(200).send({ car: newCar });
 		} else {
 			res.status(400).send({ message: "Error creating car" });
 		}

@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.carbyer.ApiClient;
 import com.example.carbyer.R;
@@ -43,6 +45,8 @@ public class CarsCreateUpdateFragment extends Fragment {
     private Spinner dealerSpinner;
     private List<Dealer> dealerList = new ArrayList<>();
 
+    String mode;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,6 +54,7 @@ public class CarsCreateUpdateFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cars_create_update, container, false);
+
 
         brandET = root.findViewById(R.id.brandET);
         modelET = root.findViewById(R.id.modelET);
@@ -63,11 +68,22 @@ public class CarsCreateUpdateFragment extends Fragment {
 
         if (getArguments() != null) {
             carId = getArguments().getInt("carId");
+
+            mode = getArguments().getString("mode", "edit");
+        }
+        else {
+            mode = "create";
+        }
+
+
+        if ("create".equals(mode)) {
+            carId = -1;
+        } else {
+            carId = getArguments().getInt("carId");
+            loadCarData();
         }
 
         dealerSpinner = root.findViewById(R.id.dealerSpinner);
-
-        loadCarData();
         loadDealers();
 
         return root;
@@ -200,30 +216,50 @@ public class CarsCreateUpdateFragment extends Fragment {
             return;
         }
 
-        ApiClient.put(
-                "cars/" + carId,
-                body,
-                token,
-                new ApiClient.Callback() {
-                    @Override
-                    public void onSuccess(JSONObject body) {
-                        Toast.makeText(
-                                requireContext(),
-                                "Car updated",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
+        ApiClient.Callback callback = new ApiClient.Callback() {
+            @Override
+            public void onSuccess(JSONObject body) {
 
-                    @Override
-                    public void onError(int httpCode, String message) {
-                        Toast.makeText(
-                                requireContext(),
-                                message,
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
+                String message;
+
+                if ("create".equals(mode)) {
+                    message = "Car created successfully";
+                } else {
+                    message = "Car updated successfully";
                 }
-        );
+
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+
+                NavHostFragment.findNavController(CarsCreateUpdateFragment.this).navigate(R.id.nav_cars);
+
+            }
+
+            @Override
+            public void onError(int httpCode, String message) {
+                Toast.makeText(
+                        requireContext(),
+                        message,
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        };
+
+        if(carId == -1) {
+            ApiClient.post(
+                    "cars/",
+                    body,
+                    token,
+                    callback
+            );
+        }
+        else {
+            ApiClient.put(
+                    "cars/" + carId,
+                    body,
+                    token,
+                    callback
+            );
+        }
     }
 
 
