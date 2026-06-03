@@ -15,12 +15,11 @@ public class Car {
     public String imageURL;
     public int kilometers;
     public int price;
-
-    public Car() {}
+    public Dealer dealer;
 
     public Car(int id, String brand, String model,
                int productionYear, String imageURL,
-               int kilometers, int price) {
+               int kilometers, int price, Dealer dealer) {
 
         this.id = id;
         this.brand = brand;
@@ -29,31 +28,7 @@ public class Car {
         this.imageURL = imageURL;
         this.kilometers = kilometers;
         this.price = price;
+        this.dealer = dealer;
     }
 
-    public static List<Car> listFromJson(JSONArray arr) {
-        List<Car> list = new ArrayList<>();
-
-        if (arr == null) return list;
-
-        for (int i = 0; i < arr.length(); i++) {
-            JSONObject o = arr.optJSONObject(i);
-            if (o == null) continue;
-
-            Car c = new Car();
-
-            c.id = o.optInt("_id");
-            c.brand = o.optString("brand");
-            c.model = o.optString("model");
-            c.productionYear = o.optInt("productionYear");
-            c.imageURL = o.optString("imageURL");
-            c.kilometers = o.optInt("kilometers");
-
-            c.price = o.optInt("price", 0);
-
-            list.add(c);
-        }
-
-        return list;
-    }
 }

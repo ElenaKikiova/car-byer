@@ -51,7 +51,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
 
         holder.title.setText(car.brand + " " + car.model);
         holder.year.setText(String.valueOf(car.productionYear));
+        holder.kilometers.setText(car.kilometers + "km");
         holder.price.setText(car.price + "€");
+        holder.dealer.setText("Sold by " + car.dealer.name + " " + car.dealer.city);
 
         String imageURL = car.imageURL;
 
@@ -83,7 +85,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
         ImageView image;
         TextView title;
         TextView price;
-
+        TextView kilometers;
+        TextView dealer;
         TextView year;
 
         public VH(@NonNull View itemView) {
@@ -92,6 +95,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.VH>{
             image = itemView.findViewById(R.id.imageView);
             title = itemView.findViewById(R.id.nameTV);
             price = itemView.findViewById(R.id.priceTV);
+            kilometers = itemView.findViewById(R.id.kilometersTV);
+            dealer = itemView.findViewById(R.id.dealerNameTV);
             year = itemView.findViewById(R.id.yearTV);
         }
     }

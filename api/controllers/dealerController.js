@@ -74,8 +74,8 @@ const createDealer = async (req, res) => {
 		const newDealer = req.body;
 
 		// Validate
-		const { name, address, workingHours } = newDealer;
-		if (!name || !address || !workingHours) {
+		const { name, address, city, workingHours } = newDealer;
+		if (!name || !address || !city || !workingHours) {
 			return res.status(400).send({ message: "Missing dealer fields" });
 		}
 
@@ -108,10 +108,10 @@ const updateDealer = async (req, res) => {
 		}
 
 		const updateData = req.body;
-		const { name, address, workingHours } = updateData;
+		const { name, address, city, workingHours } = updateData;
 
 		// Validate
-		if (!name || !address || !workingHours) {
+		if (!name || !address || !city || !workingHours) {
 			return res.status(400).send({ message: "Missing dealer fields" });
 		}
 

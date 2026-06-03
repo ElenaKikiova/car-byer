@@ -29,7 +29,7 @@ const cars = [
 		imageURL:
 			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlxBcNnX_m5I__NMSxGiE6iKEeDX3Lu5i-7A&s",
 		kilometers: 118000,
-		dealerId: 1,
+		dealerId: 7,
 		price: "9000",
 	},
 	{
@@ -159,7 +159,7 @@ const cars = [
 		imageURL:
 			"https://www.electrive.com/media/2020/09/opel-mokka-e-2020-011-min-1400x700.png.webp",
 		kilometers: 100000,
-		dealerId: 5,
+		dealerId: 6,
 		price: "8000",
 	},
 	{
@@ -170,7 +170,7 @@ const cars = [
 		imageURL:
 			"https://cdn.justauto.com.au/article%2F959cd313-3034-4224-b562-1555d870ad97%2Ffield_hero%2FRAV4%202014%20MAIN%203365hr_CROP.jpg",
 		kilometers: 341000,
-		dealerId: 6,
+		dealerId: 7,
 		price: "7500",
 	},
 ];
@@ -180,22 +180,21 @@ const dealers = [
 		id: 1,
 		name: "Stefanov",
 		address: "123 Main St",
+		city: "Plovdiv",
 		workingHours: "Mon-Fri 8-17",
-		cars: [1, 3, 5],
 	},
 	{
 		id: 2,
 		name: "Renault",
 		address: "456 Trud",
+		city: "Plovdiv",
 		workingHours: "Mon-Fri 9-18",
-		cars: [6, 7],
 	},
 	{
 		id: 3,
 		name: "Gema96",
 		address: "456 Smirnenski",
 		workingHours: "Mon-Sat 9-18",
-		cars: [8, 9, 10],
 	},
 	{
 		id: 4,
@@ -208,15 +207,22 @@ const dealers = [
 		id: 5,
 		name: "AutoHome",
 		address: "101 Gagarin",
+		city: "Plovdiv",
 		workingHours: "Mon-Fri 9-18",
-		cars: [13, 14, 15, 16],
 	},
 	{
 		id: 6,
 		name: "Peugeot",
 		address: "101 Trud",
+		city: "Plovdiv",
 		workingHours: "Mon-Fri 9-18",
-		cars: [17],
+	},
+	{
+		id: 7,
+		name: "Porche inter Auto",
+		address: "101 Izt. Tangenta",
+		city: "Sofia",
+		workingHours: "Mon-Fri 9-18",
 	},
 ];
 

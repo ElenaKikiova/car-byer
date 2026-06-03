@@ -18,6 +18,7 @@ import com.example.carbyer.R;
 import com.example.carbyer.SessionManager;
 import com.example.carbyer.adapter.CarAdapter;
 import com.example.carbyer.model.Car;
+import com.example.carbyer.model.Dealer;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -68,6 +69,22 @@ public class CarsFragment extends Fragment {
 
                     JSONObject c = carsJson.optJSONObject(i);
 
+                    JSONArray dealerArr = c.optJSONArray("dealer");
+
+                    Dealer dealer = null;
+
+                    if (dealerArr != null && dealerArr.length() > 0) {
+                        JSONObject d = dealerArr.optJSONObject(0);
+
+                        dealer = new Dealer(
+                                d.optInt("id"),
+                                d.optString("name"),
+                                d.optString("address"),
+                                d.optString("city"),
+                                d.optString("workingHours")
+                        );
+                    }
+
                     cars.add(new Car(
                             c.optInt("id"),
                             c.optString("brand"),
@@ -75,7 +92,8 @@ public class CarsFragment extends Fragment {
                             c.optInt("productionYear"),
                             c.optString("imageURL"),
                             c.optInt("kilometers"),
-                            c.optInt("price")
+                            c.optInt("price"),
+                            dealer
                     ));
                 }
 
