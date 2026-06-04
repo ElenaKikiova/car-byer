@@ -44,6 +44,7 @@ public class CarsCreateUpdateFragment extends Fragment {
 
     private Spinner dealerSpinner;
     private List<Dealer> dealerList = new ArrayList<>();
+    private int selectedDealerId = -1;
 
     String mode;
 
@@ -68,19 +69,12 @@ public class CarsCreateUpdateFragment extends Fragment {
 
         if (getArguments() != null) {
             carId = getArguments().getInt("carId");
-
             mode = getArguments().getString("mode", "edit");
+            loadCarData();
         }
         else {
             mode = "create";
-        }
-
-
-        if ("create".equals(mode)) {
             carId = -1;
-        } else {
-            carId = getArguments().getInt("carId");
-            loadCarData();
         }
 
         dealerSpinner = root.findViewById(R.id.dealerSpinner);
@@ -129,6 +123,7 @@ public class CarsCreateUpdateFragment extends Fragment {
                         c.optInt("price"),
                         dealer
                 );
+                selectedDealerId = car.dealer != null ? car.dealer.id : -1;
 
                 brandET.setText(car.brand);
                 modelET.setText(car.model);
@@ -153,11 +148,14 @@ public class CarsCreateUpdateFragment extends Fragment {
 
         String token = new SessionManager(requireContext()).getToken();
 
+
         ApiClient.get("dealers", token, new ApiClient.Callback() {
             @Override
             public void onSuccess(JSONObject body) {
 
                 if (!isAdded() || dealerSpinner == null) return;
+
+                int selectedDealerPosition = -1;
 
                 JSONArray arr = body.optJSONArray("dealers");
                 if (arr == null) return;
@@ -166,14 +164,19 @@ public class CarsCreateUpdateFragment extends Fragment {
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject d = arr.optJSONObject(i);
+                    int dealerId = d.optInt("id");
 
                     dealerList.add(new Dealer(
-                            d.optInt("id"),
+                            dealerId,
                             d.optString("name"),
                             d.optString("address"),
                             d.optString("city"),
                             d.optString("workingHours")
                     ));
+
+                    if(dealerId == selectedDealerId){
+                        selectedDealerPosition = i;
+                    }
                 }
 
                 if (!isAdded()) return;
@@ -182,6 +185,8 @@ public class CarsCreateUpdateFragment extends Fragment {
                         new DealerSpinnerAdapter(requireContext(), dealerList);
 
                 dealerSpinner.setAdapter(adapter);
+
+                dealerSpinner.setSelection(selectedDealerPosition);
             }
 
             @Override

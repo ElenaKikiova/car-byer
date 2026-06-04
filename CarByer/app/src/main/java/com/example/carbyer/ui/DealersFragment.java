@@ -71,7 +71,7 @@ public class DealersFragment extends Fragment {
             public void onDealerEdit(Dealer Dealer) {
                 Bundle args = new Bundle();
                 args.putInt("dealerId", Dealer.id);
-//                Navigation.findNavController(requireView()).navigate(R.id.nav_dealer_create_update, args);
+                Navigation.findNavController(requireView()).navigate(R.id.nav_dealer_create_update, args);
             }
 
             @Override

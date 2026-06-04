@@ -142,13 +142,23 @@ const deleteDealer = async (req, res) => {
 			return res.status(400).send({ message: "Missing dealer id" });
 		}
 
+		const carCount = await db.collection("cars").countDocuments({
+			dealerId: dealerId,
+		});
+
+		if (carCount > 0) {
+			return res.status(400).send({
+				message: "Can't delete dealer which has cars",
+			});
+		}
+
 		const result = await db.collection("dealers").deleteOne({ id: dealerId });
 
 		if (result.deletedCount === 0) {
 			return res.status(404).send({ message: "Dealer not found" });
 		}
 
-		res.status(200).json("Dealer deleted successfully");
+		res.status(200).json({ message: "Dealer deleted successfully" });
 	} catch (err) {
 		console.error(err);
 		res.status(400).send({ message: "Error deleting dealer" });

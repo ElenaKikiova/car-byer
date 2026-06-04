@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/nameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dealer Name"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/addressET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/cityET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/workingHoursET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Working Hours"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/saveB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Save Dealer" />
+
+    </LinearLayout>
+
+</ScrollView>

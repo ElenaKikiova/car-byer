@@ -29,18 +29,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+        NavController navController = Navigation.findNavController(
+                this, R.id.nav_host_fragment_content_main
+        );
 
-        binding.appBarMain.fab.setOnClickListener(view -> {
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
 
-            NavController navController = Navigation.findNavController(
-                    this, R.id.nav_host_fragment_content_main
-            );
+            int id = destination.getId();
 
-            Bundle args = new Bundle();
-            args.putString("mode", "create");
+            if (id == R.id.nav_cars) {
 
-            navController.navigate(R.id.action_cars_to_create, args);
+                binding.appBarMain.fab.show();
+
+                binding.appBarMain.fab.setOnClickListener(v -> {
+                    Bundle args = new Bundle();
+                    args.putString("mode", "create");
+
+                    controller.navigate(R.id.nav_car_create_update, args);
+                });
+            }
+
+            else if (id == R.id.nav_dealers) {
+
+                binding.appBarMain.fab.show();
+
+                binding.appBarMain.fab.setOnClickListener(v -> {
+                    Bundle args = new Bundle();
+                    args.putString("mode", "create");
+
+                    controller.navigate(R.id.nav_dealer_create_update, args);
+                });
+            }
+
+            else {
+                binding.appBarMain.fab.hide();
+            }
         });
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -49,13 +74,10 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_cars
         ).setOpenableLayout(drawer).build();
 
-        NavController navController = Navigation.findNavController(
-                this, R.id.nav_host_fragment_content_main
-        );
-
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
