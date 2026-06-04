@@ -9,6 +9,8 @@ const cars = [
 		kilometers: 142000,
 		dealerId: 1,
 		price: "8000",
+		engineL: "1.4",
+		automatic: 0,
 	},
 	{
 		id: 2,
@@ -20,6 +22,8 @@ const cars = [
 		kilometers: 217000,
 		dealerId: 1,
 		price: "10000",
+		engineL: "1.4",
+		automatic: 0,
 	},
 	{
 		id: 3,
@@ -42,6 +46,8 @@ const cars = [
 		kilometers: 189000,
 		dealerId: 2,
 		price: "5800",
+		engineL: "2",
+		automatic: 0,
 	},
 	{
 		id: 5,
@@ -53,6 +59,8 @@ const cars = [
 		kilometers: 101000,
 		dealerId: 2,
 		price: "16000",
+		engineL: "2.6",
+		automatic: 1,
 	},
 	{
 		id: 6,
@@ -64,6 +72,8 @@ const cars = [
 		kilometers: 312000,
 		dealerId: 2,
 		price: "4800",
+		engineL: "1.4",
+		automatic: 1,
 	},
 	{
 		id: 7,
@@ -75,6 +85,8 @@ const cars = [
 		kilometers: 168000,
 		dealerId: 2,
 		price: "7500",
+		engineL: "2.0",
+		automatic: 1,
 	},
 	{
 		id: 8,
@@ -86,6 +98,8 @@ const cars = [
 		kilometers: 271000,
 		dealerId: 3,
 		price: "8900",
+		engineL: "2.4",
+		automatic: 1,
 	},
 	{
 		id: 9,
@@ -108,6 +122,8 @@ const cars = [
 		kilometers: 109000,
 		dealerId: 3,
 		price: "7500",
+		engineL: "1.4",
+		automatic: 1,
 	},
 	{
 		id: 11,
@@ -119,6 +135,8 @@ const cars = [
 		kilometers: 356000,
 		dealerId: 4,
 		price: "6000",
+		engineL: "1.0",
+		automatic: 1,
 	},
 	{
 		id: 12,
@@ -129,6 +147,8 @@ const cars = [
 		kilometers: 102000,
 		dealerId: 4,
 		price: "4580",
+		engineL: "1.4",
+		automatic: 1,
 	},
 	{
 		id: 14,
@@ -139,6 +159,8 @@ const cars = [
 			"https://cdn.motor1.com/images/mgl/1ZQ2ep/s1/2024-audi-tt-special-edition-for-spain.jpg",
 		kilometers: 379000,
 		dealerId: 5,
+		engineL: "1.9",
+		automatic: 0,
 	},
 	{
 		id: 15,
@@ -150,6 +172,8 @@ const cars = [
 		kilometers: 287000,
 		dealerId: 5,
 		price: "3500",
+		engineL: "0.9",
+		automatic: 0,
 	},
 	{
 		id: 16,
@@ -161,6 +185,8 @@ const cars = [
 		kilometers: 100000,
 		dealerId: 6,
 		price: "8000",
+		engineL: "1.4",
+		automatic: 0,
 	},
 	{
 		id: 17,
@@ -172,6 +198,8 @@ const cars = [
 		kilometers: 341000,
 		dealerId: 7,
 		price: "7500",
+		engineL: "2.2",
+		automatic: 0,
 	},
 ];
 

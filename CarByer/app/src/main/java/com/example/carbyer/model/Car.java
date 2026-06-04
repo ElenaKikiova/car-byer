@@ -15,6 +15,11 @@ public class Car {
     public String imageURL;
     public int kilometers;
     public int price;
+
+    public String engine;
+
+    public boolean automatic;
+
     public Dealer dealer;
 
     public Car(int id, String brand, String model,
@@ -30,5 +35,23 @@ public class Car {
         this.price = price;
         this.dealer = dealer;
     }
+
+
+    public Car(int id, String brand, String model,
+               int productionYear, String imageURL,
+               int kilometers, int price, Dealer dealer, String engine, boolean automatic) {
+
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.productionYear = productionYear;
+        this.imageURL = imageURL;
+        this.kilometers = kilometers;
+        this.price = price;
+        this.dealer = dealer;
+        this.engine = engine;
+        this.automatic = automatic;
+    }
+
 
 }

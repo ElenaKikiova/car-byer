@@ -67,7 +67,7 @@ public class CarsFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putInt("carId", car.id);
 
-//                Navigation.findNavController(requireView()).navigate(R.id.nav_car_view, args);
+                Navigation.findNavController(requireView()).navigate(R.id.nav_car_view, args);
             }
 
             @Override
