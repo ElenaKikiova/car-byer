@@ -4,4 +4,8 @@
         android:id="@+id/nav_cars"
         android:title="Cars" />
 
+    <item
+        android:id="@+id/nav_dealers"
+        android:title="Dealers" />
+
 </menu>

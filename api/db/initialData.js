@@ -194,14 +194,15 @@ const dealers = [
 		id: 3,
 		name: "Gema96",
 		address: "456 Smirnenski",
+		city: "Plovdiv",
 		workingHours: "Mon-Sat 9-18",
 	},
 	{
 		id: 4,
 		name: "Moto Phoe",
+		city: "Plovdiv",
 		address: "101 Trakia",
 		workingHours: "Mon-Fri 9-18",
-		cars: [11, 12],
 	},
 	{
 		id: 5,

@@ -28,4 +28,28 @@
             android:defaultValue="edit" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_dealers"
+        android:name="com.example.carbyer.ui.DealersFragment"
+        android:label="Dealers">
+
+<!--        <action-->
+<!--            android:id="@+id/action_cars_to_edit"-->
+<!--            app:destination="@id/nav_car_create_update" />-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_cars_to_create"-->
+<!--            app:destination="@id/nav_car_create_update" />-->
+    </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_car_create_update"-->
+<!--        android:name="com.example.carbyer.ui.CarsCreateUpdateFragment"-->
+<!--        android:label="Car" >-->
+<!--        <argument-->
+<!--            android:name="mode"-->
+<!--            app:argType="string"-->
+<!--            android:defaultValue="edit" />-->
+<!--    </fragment>-->
+
 </navigation>
