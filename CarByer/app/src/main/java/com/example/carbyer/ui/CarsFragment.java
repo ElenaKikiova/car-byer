@@ -1,5 +1,6 @@
 package com.example.carbyer.ui;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,8 +33,6 @@ public class CarsFragment extends Fragment {
 
     private CarAdapter adapter;
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,6 +43,22 @@ public class CarsFragment extends Fragment {
 
         RecyclerView rv = root.findViewById(R.id.carsRV);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(
+                    @NonNull Rect outRect,
+                    @NonNull View view,
+                    @NonNull RecyclerView parent,
+                    @NonNull RecyclerView.State state) {
+
+                if (parent.getChildAdapterPosition(view)
+                        == state.getItemCount() - 1) {
+
+                    outRect.bottom = 130;
+                }
+            }
+        });
 
         adapter = new CarAdapter(new CarAdapter.OnClick() {
             @Override
@@ -58,13 +73,28 @@ public class CarsFragment extends Fragment {
             public void onCarEdit(Car car) {
                 Bundle args = new Bundle();
                 args.putInt("carId", car.id);
-
                 Navigation.findNavController(requireView()).navigate(R.id.nav_car_create_update, args);
             }
 
             @Override
             public void onCarDelete(Car car) {
-                // call API DELETE here
+                DeleteDialogFragment.newInstance("car", car.id)
+                        .show(getParentFragmentManager(), "delete_dialog");
+
+                getParentFragmentManager().setFragmentResultListener(
+                        "delete_result",
+                        CarsFragment.this,
+                        (requestKey, result) -> {
+
+                            boolean confirmed =
+                                    result.getBoolean("confirmed");
+
+                            if (confirmed) {
+                                // call delete API
+                                deleteCar(car.id);
+                            }
+                        }
+                );
             }
         });
         rv.setAdapter(adapter);
@@ -133,9 +163,33 @@ public class CarsFragment extends Fragment {
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("CARS", "CarsFragment destroyed");
+    public void deleteCar(int carId){
+
+        String token = new SessionManager(requireContext()).getToken();
+
+        ApiClient.delete(
+                "cars/" + carId,
+                token,
+                new ApiClient.Callback() {
+                    @Override
+                    public void onSuccess(JSONObject body) {
+
+                        Toast.makeText(requireContext(), "Deleted successfully", Toast.LENGTH_SHORT).show();
+
+                        loadCars();
+
+                    }
+
+                    @Override
+                    public void onError(int httpCode, String message) {
+                        Toast.makeText(
+                                requireContext(),
+                                message,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                }
+        );
+
     }
 }
