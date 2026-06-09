@@ -116,7 +116,9 @@ public class DealerViewFragment extends Fragment {
                 cityTV.setText(d.optString("city"));
                 addressTV.setText(d.optString("address"));
                 workingHoursTV.setText(d.optString("workingHours"));
-                carsCountTV.setText("Cars: " + cars.size());
+                carsCountTV.setText(
+                        getString(R.string.cars_count, cars.size())
+                );
 
                 adapter.setItems(cars);
             }

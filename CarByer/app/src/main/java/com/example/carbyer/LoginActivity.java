@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     private void goToHome() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("message", "Welcome!");
+        intent.putExtra("message", getString(R.string.welcome_message));
         startActivity(intent);
     }
 

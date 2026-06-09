@@ -53,7 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
         String password = passwordET.getText().toString();
         String repeatPassword = repeatPasswordET.getText().toString();
         String phone = phoneET.getText().toString();
-        String role = isSellerCB.isChecked() ? "seller" : "buyer";
+        String role = isSellerCB.isChecked()
+                ? getString(R.string.role_seller)
+                : getString(R.string.role_buyer);
 
         if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
             Toast.makeText(
@@ -97,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (token == null || token.isEmpty() || user == null) {
                     Toast.makeText(
                             RegisterActivity.this,
-                            "Registration failed",
+                            R.string.registration_failed,
                             Toast.LENGTH_SHORT
                     ).show();
                     return;
@@ -107,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Toast.makeText(
                         RegisterActivity.this,
-                        "Registration successful",
+                        R.string.registration_successful,
                         Toast.LENGTH_SHORT
                 ).show();
 

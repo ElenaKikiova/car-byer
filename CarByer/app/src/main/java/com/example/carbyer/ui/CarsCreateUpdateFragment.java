@@ -216,7 +216,7 @@ public class CarsCreateUpdateFragment extends Fragment {
 
         } catch (Exception e) {
             Toast.makeText(requireContext(),
-                    "Invalid data",
+                    R.string.invalid_data,
                     Toast.LENGTH_SHORT).show();
             return;
         }
@@ -228,9 +228,9 @@ public class CarsCreateUpdateFragment extends Fragment {
                 String message;
 
                 if ("create".equals(mode)) {
-                    message = "Car created successfully";
+                    message = getString(R.string.car_created_successfully);
                 } else {
-                    message = "Car updated successfully";
+                    message = getString(R.string.car_updated_successfully);
                 }
 
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();

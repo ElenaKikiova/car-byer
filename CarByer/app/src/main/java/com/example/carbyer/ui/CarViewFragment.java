@@ -113,14 +113,26 @@ public class CarViewFragment extends Fragment {
 
         nameTV.setText(car.brand + " " + car.model);
         yearTV.setText(String.valueOf(car.productionYear));
-        kilometersTV.setText(car.kilometers + " km");
+        kilometersTV.setText(getString(R.string.kilometers_suffix, car.kilometers));
 
         if (car.dealer != null) {
             dealerNameTV.setText(car.dealer.name + " (" + car.dealer.city + ")");
         }
 
-        engineTV.setText("Engine: " + (car.engine != null ? car.engine : "N/A"));
-        isManualTV.setText("Transmission: " + (car.automatic ? "Manual" : "Automatic"));
+        engineTV.setText(
+                getString(
+                        R.string.engine_label,
+                        car.engine != null ? car.engine : getString(R.string.engine_na)
+                )
+        );
+        isManualTV.setText(
+                getString(
+                        R.string.transmission_label,
+                        car.automatic
+                                ? getString(R.string.transmission_manual)
+                                : getString(R.string.transmission_automatic)
+                )
+        );
 
         Glide.with(requireContext())
                 .load(car.imageURL)

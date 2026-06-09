@@ -76,7 +76,10 @@ public class DealersFragment extends Fragment {
 
             @Override
             public void onDealerDelete(Dealer Dealer) {
-                DeleteDialogFragment.newInstance("Dealer", Dealer.id)
+                DeleteDialogFragment.newInstance(
+                                getString(R.string.dealer),
+                                Dealer.id
+                        )
                         .show(getParentFragmentManager(), "delete_dialog");
 
                 getParentFragmentManager().setFragmentResultListener(
@@ -157,7 +160,11 @@ public class DealersFragment extends Fragment {
                     @Override
                     public void onSuccess(JSONObject body) {
 
-                        Toast.makeText(requireContext(), "Deleted successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                requireContext(),
+                                R.string.delete_successful,
+                                Toast.LENGTH_SHORT
+                        ).show();
 
                         loadDealers();
 

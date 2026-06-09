@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.carbyer.R;
+
 public class DeleteDialogFragment extends DialogFragment {
 
     @NonNull
@@ -16,10 +18,10 @@ public class DeleteDialogFragment extends DialogFragment {
         String label = getArguments().getString("label", "item");
 
         return new AlertDialog.Builder(requireContext())
-                .setTitle("Delete")
-                .setMessage("Are you sure you want to delete this " + label + "?")
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Delete", (dialog, which) -> {
+                .setTitle(R.string.delete)
+                .setMessage(getString(R.string.delete_confirmation, label))
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
 
                     Bundle result = new Bundle();
                     result.putBoolean("confirmed", true);

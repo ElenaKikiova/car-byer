@@ -120,9 +120,11 @@ public class DealersCreateUpdateFragment extends Fragment {
             body.put("workingHours", workingHoursET.getText().toString());
         }
         catch (Exception e) {
-            Toast.makeText(requireContext(),
-                    "Invalid data",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                    requireContext(),
+                    R.string.invalid_data,
+                    Toast.LENGTH_SHORT
+            ).show();
             return;
         }
 
@@ -133,9 +135,9 @@ public class DealersCreateUpdateFragment extends Fragment {
                 String message;
 
                 if ("create".equals(mode)) {
-                    message = "Dealer created successfully";
+                    message = getString(R.string.dealer_created_successfully);
                 } else {
-                    message = "Dealer updated successfully";
+                    message = getString(R.string.dealer_updated_successfully);
                 }
 
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();

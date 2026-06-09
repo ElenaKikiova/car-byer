@@ -79,7 +79,7 @@ public class CarsFragment extends Fragment {
 
             @Override
             public void onCarDelete(Car car) {
-                DeleteDialogFragment.newInstance("car", car.id)
+                DeleteDialogFragment.newInstance(getString(R.string.car), car.id)
                         .show(getParentFragmentManager(), "delete_dialog");
 
                 getParentFragmentManager().setFragmentResultListener(
@@ -91,7 +91,6 @@ public class CarsFragment extends Fragment {
                                     result.getBoolean("confirmed");
 
                             if (confirmed) {
-                                // call delete API
                                 deleteCar(car.id);
                             }
                         }
@@ -175,7 +174,7 @@ public class CarsFragment extends Fragment {
                     @Override
                     public void onSuccess(JSONObject body) {
 
-                        Toast.makeText(requireContext(), "Deleted successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), R.string.delete_successful, Toast.LENGTH_SHORT).show();
 
                         loadCars();
 
