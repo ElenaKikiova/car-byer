@@ -85,8 +85,9 @@ const createCar = async (req, res) => {
 		const newCar = req.body;
 
 		// Validate car fields
-		const { brand, model, productionYear, dealerId } = newCar;
-		if (!brand || !model || !productionYear || !dealerId) {
+		const { brand, model, productionYear, dealerId, engineL } = newCar;
+		console.log(newCar);
+		if (!brand || !model || !productionYear || !dealerId || !engineL) {
 			return res.status(400).send({ message: "Missing car fields" });
 		}
 

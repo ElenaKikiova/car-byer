@@ -8,4 +8,7 @@
         android:id="@+id/nav_dealers"
         android:title="Dealers" />
 
+    <item
+        android:id="@+id/nav_logout"
+        android:title="@string/menu_logout" />
 </menu>

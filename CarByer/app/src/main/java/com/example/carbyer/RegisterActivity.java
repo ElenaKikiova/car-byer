@@ -1,9 +1,11 @@
 package com.example.carbyer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText repeatPasswordET;
     private CheckBox isSellerCB;
 
+    private TextView loginTV;
+
     private SessionManager session;
 
     @Override
@@ -37,8 +41,16 @@ public class RegisterActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.registerPasswordET);
         repeatPasswordET = findViewById(R.id.registerRepeatPasswordET);
         isSellerCB = findViewById(R.id.isSellerCB);
+        loginTV = findViewById(R.id.loginTV);
 
         session = new SessionManager(this);
+
+
+        loginTV.setOnClickListener(v -> {
+            startActivity(
+                    new Intent(RegisterActivity.this, LoginActivity.class)
+            );
+        });
     }
 
     public void onCancelClick(View view) {

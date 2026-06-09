@@ -1,4 +1,4 @@
-package com.example.carbyer.ui;
+package com.example.carbyer.ui.add;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +19,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.carbyer.ApiClient;
 import com.example.carbyer.R;
 import com.example.carbyer.SessionManager;
-import com.example.carbyer.adapter.CarAdapter;
 import com.example.carbyer.adapter.DealerSpinnerAdapter;
 import com.example.carbyer.model.Car;
 import com.example.carbyer.model.Dealer;
@@ -46,6 +45,9 @@ public class CarsCreateUpdateFragment extends Fragment {
     private List<Dealer> dealerList = new ArrayList<>();
     private int selectedDealerId = -1;
 
+    private EditText engineLET;
+    private Switch automaticSwitch;
+
     String mode;
 
     @Nullable
@@ -63,16 +65,20 @@ public class CarsCreateUpdateFragment extends Fragment {
         kilometersET = root.findViewById(R.id.kilometersET);
         priceET = root.findViewById(R.id.priceET);
         imageUrlET = root.findViewById(R.id.imageUrlET);
+        engineLET = root.findViewById(R.id.engineLET);
+        automaticSwitch = root.findViewById(R.id.automaticSwitch);
 
         Button saveB = root.findViewById(R.id.saveB);
         saveB.setOnClickListener(v -> saveCar());
 
         if (getArguments() != null) {
-            carId = getArguments().getInt("carId");
-            mode = getArguments().getString("mode", "edit");
-            loadCarData();
-        }
-        else {
+            mode = getArguments().getString("mode", "create");
+            carId = getArguments().getInt("carId", -1);
+
+            if ("edit".equals(mode) && carId != -1) {
+                loadCarData();
+            }
+        } else {
             mode = "create";
             carId = -1;
         }
@@ -121,7 +127,9 @@ public class CarsCreateUpdateFragment extends Fragment {
                         c.optString("imageURL"),
                         c.optInt("kilometers"),
                         c.optInt("price"),
-                        dealer
+                        dealer,
+                        c.optString("engineL"),
+                        c.optBoolean("automatic")
                 );
                 selectedDealerId = car.dealer != null ? car.dealer.id : -1;
 
@@ -131,6 +139,9 @@ public class CarsCreateUpdateFragment extends Fragment {
                 kilometersET.setText(String.valueOf(car.kilometers));
                 priceET.setText(String.valueOf(car.price));
                 imageUrlET.setText(car.imageURL);
+                engineLET.setText(c.optString("engineL"));
+                int automatic = c.optInt("automatic", 0);
+                automaticSwitch.setChecked(automatic == 1);
 
                 Log.d("CARS", "Loaded car: " + car);
 
@@ -206,10 +217,11 @@ public class CarsCreateUpdateFragment extends Fragment {
                     Integer.parseInt(yearET.getText().toString()));
             body.put("kilometers",
                     Integer.parseInt(kilometersET.getText().toString()));
-            body.put("price",
-                    Integer.parseInt(priceET.getText().toString()));
+            body.put("price", priceET.getText().toString());
             body.put("imageURL",
                     imageUrlET.getText().toString());
+            body.put("engineL", engineLET.getText().toString());
+            body.put("automatic", automaticSwitch.isChecked() ? 1 : 0);
 
             Dealer selected = (Dealer) dealerSpinner.getSelectedItem();
             body.put("dealerId", selected.id);

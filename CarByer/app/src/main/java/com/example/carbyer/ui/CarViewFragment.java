@@ -28,11 +28,12 @@ public class CarViewFragment extends Fragment {
 
     private ImageView imageView;
     private TextView nameTV;
+    private TextView priceTV;
     private TextView yearTV;
     private TextView kilometersTV;
     private TextView dealerNameTV;
-    private TextView engineTV;
-    private TextView isManualTV;
+    private TextView engineLTV;
+    private TextView isAutomaticTV;
 
     @Nullable
     @Override
@@ -45,10 +46,11 @@ public class CarViewFragment extends Fragment {
         imageView = root.findViewById(R.id.imageView);
         nameTV = root.findViewById(R.id.nameTV);
         yearTV = root.findViewById(R.id.yearTV);
+        priceTV = root.findViewById(R.id.priceTV);
         kilometersTV = root.findViewById(R.id.kilometersTV);
         dealerNameTV = root.findViewById(R.id.dealerNameTV);
-        engineTV = root.findViewById(R.id.engineTV);
-        isManualTV = root.findViewById(R.id.isManualTV);
+        engineLTV = root.findViewById(R.id.engineLTV);
+        isAutomaticTV = root.findViewById(R.id.isAutomaticTV);
 
         if (getArguments() != null) {
             carId = getArguments().getInt("carId", -1);
@@ -94,12 +96,14 @@ public class CarViewFragment extends Fragment {
                         c.optString("imageURL"),
                         c.optInt("kilometers"),
                         c.optInt("price"),
-                        dealer
+                        dealer,
+                        c.optString("engineL"),
+                        c.optInt("automatic") == 1
                 );
 
                 bind(car);
 
-                Log.d("CAR_VIEW", "Loaded car: " + car);
+                Log.d("CAR_VIEW", "Loaded car: " + c);
             }
 
             @Override
@@ -112,6 +116,7 @@ public class CarViewFragment extends Fragment {
     private void bind(Car car) {
 
         nameTV.setText(car.brand + " " + car.model);
+        priceTV.setText(car.price + "€");
         yearTV.setText(String.valueOf(car.productionYear));
         kilometersTV.setText(getString(R.string.kilometers_suffix, car.kilometers));
 
@@ -119,18 +124,18 @@ public class CarViewFragment extends Fragment {
             dealerNameTV.setText(car.dealer.name + " (" + car.dealer.city + ")");
         }
 
-        engineTV.setText(
+        engineLTV.setText(
                 getString(
                         R.string.engine_label,
-                        car.engine != null ? car.engine : getString(R.string.engine_na)
+                        car.engineL != null ? car.engineL : getString(R.string.engine_na)
                 )
         );
-        isManualTV.setText(
+        isAutomaticTV.setText(
                 getString(
                         R.string.transmission_label,
                         car.automatic
-                                ? getString(R.string.transmission_manual)
-                                : getString(R.string.transmission_automatic)
+                                ? getString(R.string.transmission_automatic)
+                                : getString(R.string.transmission_manual)
                 )
         );
 

@@ -34,7 +34,9 @@ const cars = [
 			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlxBcNnX_m5I__NMSxGiE6iKEeDX3Lu5i-7A&s",
 		kilometers: 118000,
 		dealerId: 7,
+		engineL: "1.4",
 		price: "9000",
+		automatic: 0,
 	},
 	{
 		id: 4,
@@ -111,6 +113,8 @@ const cars = [
 		kilometers: 134000,
 		dealerId: 3,
 		price: "4500",
+		engineL: "1.4",
+		automatic: 1,
 	},
 	{
 		id: 10,
@@ -161,6 +165,7 @@ const cars = [
 		dealerId: 5,
 		engineL: "1.9",
 		automatic: 0,
+		price: "5500",
 	},
 	{
 		id: 15,

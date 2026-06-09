@@ -1,4 +1,4 @@
-package com.example.carbyer.ui;
+package com.example.carbyer.ui.add;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,15 +17,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.carbyer.ApiClient;
 import com.example.carbyer.R;
 import com.example.carbyer.SessionManager;
-import com.example.carbyer.adapter.DealerSpinnerAdapter;
-import com.example.carbyer.model.Dealer;
 import com.example.carbyer.model.Dealer;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class DealersCreateUpdateFragment extends Fragment {

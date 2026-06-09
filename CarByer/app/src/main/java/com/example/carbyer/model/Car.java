@@ -16,7 +16,7 @@ public class Car {
     public int kilometers;
     public int price;
 
-    public String engine;
+    public String engineL;
 
     public boolean automatic;
 
@@ -39,7 +39,7 @@ public class Car {
 
     public Car(int id, String brand, String model,
                int productionYear, String imageURL,
-               int kilometers, int price, Dealer dealer, String engine, boolean automatic) {
+               int kilometers, int price, Dealer dealer, String engineL, boolean automatic) {
 
         this.id = id;
         this.brand = brand;
@@ -49,7 +49,7 @@ public class Car {
         this.kilometers = kilometers;
         this.price = price;
         this.dealer = dealer;
-        this.engine = engine;
+        this.engineL = engineL;
         this.automatic = automatic;
     }
 

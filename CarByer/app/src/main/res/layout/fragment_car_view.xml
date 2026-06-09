@@ -30,6 +30,15 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/priceTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/yearTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,18 +58,18 @@
             android:text="Dealer" />
 
         <TextView
-            android:id="@+id/engineTV"
+            android:id="@+id/engineLTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Engine" />
 
         <TextView
-            android:id="@+id/isManualTV"
+            android:id="@+id/isAutomaticTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Manual" />
+            android:text="automatic" />
 
     </LinearLayout>
 
