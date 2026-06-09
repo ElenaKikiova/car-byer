@@ -136,7 +136,7 @@ public class DealersCreateUpdateFragment extends Fragment {
 
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
 
-                NavHostFragment.findNavController(DealersCreateUpdateFragment.this).navigate(R.id.nav_cars);
+                NavHostFragment.findNavController(DealersCreateUpdateFragment.this).navigate(R.id.nav_dealers);
 
             }
 
@@ -169,9 +169,4 @@ public class DealersCreateUpdateFragment extends Fragment {
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("DEALERS", "DealersCrFragment destroyed");
-    }
 }
