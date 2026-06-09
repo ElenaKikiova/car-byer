@@ -39,9 +39,11 @@ dependencies {
     implementation libs.material
     implementation libs.navigation.fragment.ktx
     implementation libs.navigation.ui.ktx
+    implementation libs.swiperefreshlayout
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
+    implementation libs.recyclerview
+    implementation libs.swiperefresh
     implementation libs.glide
-    annotationProcessor libs.glideCompiler
 }

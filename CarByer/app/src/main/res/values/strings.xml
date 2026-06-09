@@ -47,4 +47,11 @@
     <string name="cars_error_prefix">Error: %1$s</string>
     <string name="car_created_successfully">Car created successfully</string>
     <string name="car_updated_successfully">Car updated successfully</string>
+    <string name="cars_title">Cars</string>
+    <string name="filter_brand_hint">Brand</string>
+    <string name="filter_city_hint">City</string>
+    <string name="filter_apply">Apply</string>
+    <string name="filter_clear">Clear</string>
+    <string name="filter_from_year_hint">From year</string>
+    <string name="filter_to_year_hint">To year</string>
 </resources>

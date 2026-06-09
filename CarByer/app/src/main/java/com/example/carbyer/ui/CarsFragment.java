@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,9 +17,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.carbyer.ApiClient;
-import com.example.carbyer.MainActivity;
 import com.example.carbyer.R;
 import com.example.carbyer.SessionManager;
 import com.example.carbyer.adapter.CarAdapter;
@@ -28,11 +30,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CarsFragment extends Fragment {
 
     private CarAdapter adapter;
+
+    private EditText brandET;
+    private EditText fromYearET;
+    private EditText toYearET;
+    private SwipeRefreshLayout swipe;
 
     @Nullable
     @Override
@@ -41,9 +50,27 @@ public class CarsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cars, container, false);
-
+        swipe = root.findViewById(R.id.swipeRefresh);
         RecyclerView rv = root.findViewById(R.id.carsRV);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        brandET = root.findViewById(R.id.filterBrandET);
+        fromYearET = root.findViewById(R.id.filterFromYearET);
+        toYearET = root.findViewById(R.id.filterToYearET);
+
+        Button filterBtn = root.findViewById(R.id.filterApplyB);
+        Button clearB = root.findViewById(R.id.filterClearB);
+
+        filterBtn.setOnClickListener(v -> loadCars());
+
+        clearB.setOnClickListener(v -> {
+            brandET.setText("");
+            fromYearET.setText("");
+            toYearET.setText("");
+            loadCars();
+        });
+
+        swipe.setOnRefreshListener(this::loadCars);
 
         rv.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -108,8 +135,25 @@ public class CarsFragment extends Fragment {
 
         String token = new SessionManager(requireContext()).getToken();
 
+        Map<String, String> query = new HashMap<>();
 
-        ApiClient.get("cars", token, new ApiClient.Callback() {
+        String brand = brandET.getText().toString().trim();
+        String fromYear = fromYearET.getText().toString().trim();
+        String toYear = toYearET.getText().toString().trim();
+
+        if (!brand.isEmpty()) {
+            query.put("carMake", brand);
+        }
+
+        if (!fromYear.isEmpty()) {
+            query.put("fromYear", fromYear);
+        }
+
+        if (!toYear.isEmpty()) {
+            query.put("toYear", toYear);
+        }
+
+        ApiClient.get("cars?", query, token, new ApiClient.Callback() {
 
             @Override
             public void onSuccess(JSONObject body) {
@@ -149,9 +193,7 @@ public class CarsFragment extends Fragment {
                             dealer
                     ));
                 }
-
-                Log.d("CARS", "Loaded cars: ");
-
+                swipe.setRefreshing(false);
                 adapter.setItems(cars);
             }
 
@@ -160,7 +202,6 @@ public class CarsFragment extends Fragment {
                 Log.e("CARS", "Error: " + message);
             }
         });
-
     }
 
     public void deleteCar(int carId){
