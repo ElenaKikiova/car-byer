@@ -1,7 +1,8 @@
 const { MongoClient } = require("mongodb");
 const { fillCarsData, fillDealersData } = require("./fillDb.js");
 
-const uri = "mongodb://localhost:27017";
+// const uri = "mongodb://localhost:27017";
+const uri = process.env.MONGO_URL;
 const client = new MongoClient(uri);
 const dbName = "car-byer-db";
 
