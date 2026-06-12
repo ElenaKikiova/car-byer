@@ -11,7 +11,7 @@ const carRoutes = require("./routes/carRoutes");
 const dealerRoutes = require("./routes/dealerRoutes");
 
 const app = express();
-const PORT = 8088;
+const PORT = process.env.PORT || 8088;
 
 // CORS config
 const corsOptions = {
@@ -37,7 +37,7 @@ connectToDb()
 		app.use("/dealers", dealerRoutes);
 
 		app.listen(PORT, () => {
-			console.log(`Server is running on http://localhost:${PORT}`);
+			console.log(`Server is running on ${PORT}`);
 		});
 	})
 	.catch((err) => {
