@@ -20,7 +20,8 @@ import java.util.concurrent.Executors;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://10.0.2.2:8088/";
+//    public static final String BASE_URL = "http://10.0.2.2:8088/";
+    public static final String BASE_URL = "https://car-byer.onrender.com/";
 
     public interface Callback{
         void onSuccess(JSONObject body);

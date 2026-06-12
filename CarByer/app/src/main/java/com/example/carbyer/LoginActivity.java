@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         registerTV = findViewById(R.id.registerTV);
 
         // Mock for quick logging
-        emailET.setText("elena@gmail.com");
-        passwordET.setText("123456");
+//        emailET.setText("elena@gmail.com");
+//        passwordET.setText("123456");
 
         session = new SessionManager(this);
 

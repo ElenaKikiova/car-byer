@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,10 +63,31 @@ public class DealerViewFragment extends Fragment {
             }
 
             @Override
-            public void onCarEdit(Car car) {}
+            public void onCarEdit(Car car) {
+                Bundle args = new Bundle();
+                args.putInt("carId", car.id);
+                Navigation.findNavController(requireView()).navigate(R.id.nav_car_create_update, args);
+            }
 
             @Override
-            public void onCarDelete(Car car) {}
+            public void onCarDelete(Car car) {
+                DeleteDialogFragment.newInstance(getString(R.string.car), car.id)
+                        .show(getParentFragmentManager(), "delete_dialog");
+
+                getParentFragmentManager().setFragmentResultListener(
+                        "delete_result",
+                        DealerViewFragment.this,
+                        (requestKey, result) -> {
+
+                            boolean confirmed =
+                                    result.getBoolean("confirmed");
+
+                            if (confirmed) {
+                                deleteCar(car.id);
+                            }
+                        }
+                );
+            }
         });
 
         carsRV.setAdapter(adapter);
@@ -128,5 +150,36 @@ public class DealerViewFragment extends Fragment {
                 Log.e("DEALER_VIEW", message);
             }
         });
+    }
+
+
+    public void deleteCar(int carId){
+
+        String token = new SessionManager(requireContext()).getToken();
+
+        ApiClient.delete(
+                "cars/" + carId,
+                token,
+                new ApiClient.Callback() {
+                    @Override
+                    public void onSuccess(JSONObject body) {
+
+                        Toast.makeText(requireContext(), R.string.delete_successful, Toast.LENGTH_SHORT).show();
+
+                        loadDealer();
+
+                    }
+
+                    @Override
+                    public void onError(int httpCode, String message) {
+                        Toast.makeText(
+                                requireContext(),
+                                message,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                }
+        );
+
     }
 }
